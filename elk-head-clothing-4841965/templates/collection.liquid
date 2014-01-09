@@ -1,10 +1,4 @@
-{% paginate collection.products by 50 %} 
-{% include 'breadcrumb' %}
-{% if current_tags %}
-<h1>{{ current_tags }}</h1>
-{% else %}
-<h1>{{ collection.title }} </h1>
-{% endif %}
+{% paginate collection.products by 50 %}
 {% assign show_hero = false %}
 {% if collection.image %}
 	{% assign show_hero = true %}
@@ -15,21 +9,35 @@
 {% if show_hero == true %}
 	{% unless current_tags %}
 	<!--START HERO-->
-	<div class="twelve columns alpha omega">
+	<div class="sixteen columns alpha omega">
+        {% comment %}
 		{% if collection.image %}
-			<section id="collection-hero" class="animated fadeInUpBig">
-				<img src="{{ collection.image.src | collection_img_url: 'large' }}" alt="{{ collection.title }}">
+			<section id="collection-hero" class="animated fadeInUpBig" style="background-image: url({{ collection.image.src | collection_img_url: 'large' }})" alt="{{ collection.title }};">
+                {% if current_tags %}
+                <h1>{{ current_tags }}</h1>
+                {% else %}
+                <h1>{{ collection.title }} </h1>
+                {% endif %}
+
 			</section>
 		{% endif %}
+        {% endcomment %}
+
+        {% comment %}
 		{% if collection.description.size > 0 %}
 			<p id="collection-description" class="animated fadeInUpBig wysiwyg">{{ collection.description | strip_html }}</p>
 		{% endif %}
+        {% endcomment %}
 	</div>
 	<!--END HERO-->
 	{% endunless %}
 {% endif %}
 <!--START PRODUCT GRID-->
-<section class="product-grid twelve columns alpha omega">
+<section class="product-grid sixteen columns alpha omega">
+    <div id="collection-hero">
+        <img  class="animated fadeInUpBig sixteen columns alpha omega" src="{{ collection.image.src | collection_img_url: 'master' }}" alt="{{ collection.title }}">
+    </div>
+
 	{% if collection.products.size > 0 %}
 		{% for product in collection.products %}
 			{% include 'product-grid-item' %}

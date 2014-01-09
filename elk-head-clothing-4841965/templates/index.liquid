@@ -53,9 +53,9 @@
  		 		<h4><small>From</small> {{ 2000 | money }} </h4>
  		 	</a>
  		 </div>
- 		 
+
  		</section>
- 		
+
  	</div><!-- helper content -->
  </div><!-- helper section -->
 
@@ -64,11 +64,42 @@
 <br>
 
 
-<section class="product-grid twelve columns alpha omega">
+<section class="product-grid sixteen columns alpha omega">
 	{% assign collection = collections.[settings.frontpage_collection] %}
 	{% for product in collection.products %}
-		{% include 'product-grid-item' %}
+        {% if forloop.index == 9 %}
+            <div class="feature-product sixteen columns alpha omega %}">
+                <a href="{{ product.url | within: collection }}" id="product-{{ forloop.index }}" {% unless template == "product" %}class="animated fadeInUpBig"{% endunless %}>
+                    {% if on_sale == true %}<div class="sale">Sale</div> {% endif %}
+                    <img src="{{ product.featured_image.src | product_img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" class="product" />
+                    <div class="details">
+                        <h3>{{ product.title }}</h3>
+                        <h4>{% if product.price_varies %}<small>From</small> {% endif %}{{ product.price | money }} {% if on_sale == true %}<del>{{ product.compare_at_price | money }}</del>{% endif %}</h4>
+
+                        <p class="view-now">View now</p>
+                    </div>
+                </a>
+            </div>
+        {% else %}
+		  {% include 'product-grid-item' %}
+        {% endif %}
 	{% endfor %}
+
+    {% if collection.products.count == 1 %}
+    <div class="blank item four columns"></div>
+    <div class="blank item four columns"></div>
+    <div class="blank item four columns omega"></div>
+    {% endif %}
+
+    {% if collection.products.count == 2 %}
+    <div class="blank item four columns"></div>
+    <div class="blank item four columns omega"></div>
+    {% endif %}
+
+    {% if collection.products.count == 3 %}
+    <div class="blank item four columns omega"></div>
+    {% endif %}
+
 </section>
 
 {% endif %}

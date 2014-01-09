@@ -1,5 +1,3 @@
-{% include 'breadcrumb' %}
-<h1>My Cart</h1>
 <section id="cart">
 	{% if cart.item_count > 0 %}
 	<form action="/cart" method="post">
@@ -21,7 +19,7 @@
 				</div>
 			</div>
 			<!-- END HEADERS-->
-			 {% for item in cart.items %}  
+			 {% for item in cart.items %}
 			<!-- START ROW-->
 			<div class="row">
 				<div class="six columns alpha description">
@@ -30,11 +28,11 @@
 						<h3><a href="{{ item.product.url | within: collections.all }}">{{ item.title }}</a></h3>
 						<h4>{{ item.vendor }}</h4>
 						<p>{{ item.product.description | strip_html | truncatewords: 20 }}</p>
-						
+
 					</div>
 				</div>
 				<div class="two columns price desktop">
-					{{ item.price | money }} 
+					{{ item.price | money }}
 				</div>
 				<div class="one columns quantity tr">
 					<input type="text" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" /> <p class="mobile">x {{ item.price | money }}</p>
@@ -71,6 +69,8 @@
 		<!-- END ACTIONS -->
 	</form>
 	{% else %}
-	 <p>It appears that your cart is currently empty! <a href="/collections/all">Continue Shopping</a>.</p>
+    <div class="empty-cart">
+	 <p>It appears that your cart is currently empty! <a href="/collections/all">Continue Shopping</a></p>
+    </div>
 	{% endif %}
 </section>

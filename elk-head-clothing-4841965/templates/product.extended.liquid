@@ -1,6 +1,4 @@
-{% comment %}
-{% include 'breadcrumb' %}
-{% endcomment %}
+
 
 {% if product.compare_at_price > product.price %}{% assign on_sale = true %}{% endif %}
 <!--START PRODUCT-->
@@ -67,9 +65,7 @@
                     </div>
                 </div>
                 {% else %}
-                <div class="wysiwyg no-tabs">
-                {{ product.description }}
-                </div>
+
                 {% endif %}
             </section>
             <!--END PRODUCT INFO-->
@@ -104,7 +100,7 @@
 	</section>
 	<!--END BUY-->
 	<br class="clear">
-	{% if settings.product_desc_right == false %}
+
 	<!--START PRODUCT INFO-->
 	<section id="product-info">
 		{% if settings.show_shipping_tab == true %}
@@ -129,7 +125,7 @@
 		{% endif %}
 	</section>
 	<!--END PRODUCT INFO-->
-	{% endif %}
+
 	{% assign current_product = product.handle %}
 	{% assign current_collection = collection.handle %}
 	{% assign found_current_product = false %}
